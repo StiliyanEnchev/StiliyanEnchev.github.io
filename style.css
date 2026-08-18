@@ -1,14 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap');
 
 :root {
-    --bg: #f7f5f1;
-    --surface: #ffffff;
-    --text: #1c1c1c;
-    --muted: #77736d;
-    --accent: #8b6f47;
-    --border: #e5e0d8;
-    --dark: #242321;
-    --max-width: 1180px;
+    --background: #f3efe8;
+    --paper: #faf8f4;
+    --white: #ffffff;
+    --text: #252321;
+    --muted: #77716a;
+    --accent: #967653;
+    --line: #ddd6cc;
+    --dark: #292724;
+
+    --max-width: 1200px;
 }
 
 * {
@@ -22,9 +24,9 @@ html {
 }
 
 body {
-    font-family: "DM Sans", sans-serif;
-    background: var(--bg);
+    background: var(--background);
     color: var(--text);
+    font-family: "DM Sans", sans-serif;
     line-height: 1.6;
 }
 
@@ -34,28 +36,31 @@ a {
 }
 
 .container {
-    width: min(var(--max-width), calc(100% - 48px));
+    width: min(var(--max-width), calc(100% - 60px));
     margin: 0 auto;
 }
 
 
-/* =========================
+/* ========================================
    HEADER
-========================= */
+======================================== */
 
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    z-index: 100;
-    background: rgba(247, 245, 241, 0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(229, 224, 216, 0.7);
+    right: 0;
+    z-index: 1000;
+
+    background: rgba(243, 239, 232, 0.82);
+    backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(221, 214, 204, 0.7);
 }
 
 .nav {
-    height: 76px;
+    height: 74px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,7 +68,7 @@ a {
 
 .logo {
     font-family: "Playfair Display", serif;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 600;
 }
 
@@ -73,30 +78,54 @@ a {
 
 .nav-links {
     display: flex;
-    gap: 32px;
+    align-items: center;
+    gap: 30px;
 }
 
 .nav-links a {
-    font-size: 14px;
+    position: relative;
+
+    font-size: 13px;
     color: var(--muted);
-    transition: color 0.2s ease;
+
+    transition: color 0.25s ease;
+}
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--accent);
+
+    transition: width 0.25s ease;
 }
 
 .nav-links a:hover {
     color: var(--text);
 }
 
+.nav-links a:hover::after {
+    width: 100%;
+}
 
-/* =========================
-   TYPOGRAPHY
-========================= */
+
+/* ========================================
+   GENERAL TYPOGRAPHY
+======================================== */
 
 .eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--accent);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
+
+    color: var(--accent);
 }
 
 h1,
@@ -106,9 +135,9 @@ h2 {
 }
 
 h1 {
-    font-size: clamp(64px, 9vw, 120px);
+    font-size: clamp(62px, 8vw, 105px);
     line-height: 0.92;
-    letter-spacing: -4px;
+    letter-spacing: -3px;
 }
 
 h1 span {
@@ -116,29 +145,51 @@ h1 span {
 }
 
 h2 {
-    font-size: clamp(36px, 5vw, 58px);
+    font-size: clamp(38px, 5vw, 62px);
     line-height: 1.05;
     letter-spacing: -1.5px;
 }
 
-h3 {
-    font-weight: 600;
-}
 
-
-/* =========================
+/* ========================================
    HERO
-========================= */
+======================================== */
 
 .hero {
     min-height: 100vh;
+
     display: flex;
     align-items: center;
-    padding: 140px 0 100px;
+
+    padding: 140px 0 110px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    right: -160px;
+    top: 160px;
+
+    border-radius: 50%;
+
+    background: rgba(150, 118, 83, 0.08);
+
+    pointer-events: none;
 }
 
 .hero-content {
-    max-width: 900px;
+    position: relative;
+    z-index: 1;
+
+    max-width: 850px;
 }
 
 .hero h1 {
@@ -147,109 +198,142 @@ h3 {
 
 .hero h2 {
     font-family: "DM Sans", sans-serif;
-    font-size: 20px;
+
+    font-size: 18px;
     font-weight: 500;
+
     color: var(--muted);
-    margin-top: 28px;
+
+    margin-top: 25px;
 }
 
 .hero-quote {
-    max-width: 620px;
+    max-width: 680px;
+
     margin-top: 30px;
+
     font-family: "Playfair Display", serif;
-    font-size: clamp(23px, 3vw, 34px);
-    line-height: 1.35;
+
+    font-size: clamp(22px, 3vw, 31px);
+    line-height: 1.4;
+
+    color: #45403a;
 }
 
 .location {
-    margin-top: 20px;
+    margin-top: 22px;
+
+    font-size: 14px;
     color: var(--muted);
-    font-size: 15px;
 }
 
 .social-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 32px;
+    gap: 9px;
+
+    margin-top: 30px;
 }
 
 .social-links a {
-    padding: 10px 17px;
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    background: var(--surface);
-    font-size: 13px;
-    transition: all 0.2s ease;
+    padding: 9px 16px;
+
+    border: 1px solid var(--line);
+    border-radius: 40px;
+
+    background: rgba(250, 248, 244, 0.7);
+
+    font-size: 12px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
 }
 
 .social-links a:hover {
     background: var(--dark);
     color: white;
-    border-color: var(--dark);
+
+    transform: translateY(-2px);
 }
 
 
-/* =========================
-   SECTIONS
-========================= */
+/* ========================================
+   ABOUT
+======================================== */
 
 .section {
-    padding: 110px 0;
+    padding: 115px 0;
 }
 
 .two-column {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
     gap: 100px;
+
     align-items: start;
 }
 
 .two-column h2 {
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .section-text {
-    color: var(--muted);
-    font-size: 17px;
     max-width: 650px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+    line-height: 1.85;
 }
 
 .section-text p + p {
-    margin-top: 24px;
+    margin-top: 25px;
 }
 
 
-/* =========================
+/* ========================================
    SKILLS
-========================= */
+======================================== */
 
 .skills-section {
-    padding-top: 70px;
-    padding-bottom: 100px;
+    padding-top: 65px;
+    padding-bottom: 115px;
+
+    border-top: 1px solid var(--line);
 }
 
 .skills-section h2 {
-    margin-top: 18px;
-    margin-bottom: 38px;
+    margin-top: 15px;
+    margin-bottom: 32px;
 }
 
 .skills-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    max-width: 850px;
+
+    gap: 8px;
+
+    max-width: 900px;
 }
 
 .skills-list span {
-    display: inline-flex;
-    align-items: center;
-    padding: 11px 18px;
-    border: 1px solid var(--border);
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    border: 1px solid var(--line);
     border-radius: 30px;
-    background: var(--surface);
-    color: #4f4b46;
-    font-size: 14px;
+
+    background: rgba(250, 248, 244, 0.7);
+
+    color: #5d5750;
+
+    font-size: 13px;
+
     transition:
         transform 0.2s ease,
         background 0.2s ease,
@@ -257,29 +341,56 @@ h3 {
 }
 
 .skills-list span:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+
     background: var(--dark);
+
     color: white;
 }
 
 
-/* =========================
+/* ========================================
    CONTACT
-========================= */
+======================================== */
 
 .contact-section {
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .contact-box {
+    position: relative;
+
+    padding: 65px;
+
     background: var(--dark);
+
     color: white;
-    padding: 70px;
-    border-radius: 6px;
+
+    border-radius: 4px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 40px;
+
+    overflow: hidden;
+}
+
+.contact-box::after {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    right: -90px;
+    bottom: -130px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .contact-box .eyebrow {
@@ -287,23 +398,37 @@ h3 {
 }
 
 .contact-box h2 {
-    margin-top: 16px;
+    margin-top: 15px;
 }
 
 .contact-box p {
-    color: #c7c5c0;
-    margin-top: 18px;
+    margin-top: 16px;
+
+    color: #c8c4bd;
+
+    font-size: 14px;
 }
 
 .button {
+    position: relative;
+    z-index: 2;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 13px 22px;
+
+    padding: 12px 21px;
+
     border-radius: 30px;
-    font-size: 14px;
+
+    font-size: 13px;
     font-weight: 600;
+
     white-space: nowrap;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
 }
 
 .button.primary {
@@ -312,13 +437,15 @@ h3 {
 }
 
 .button.primary:hover {
-    background: #eeeae3;
+    transform: translateY(-2px);
+
+    background: #eee9e1;
 }
 
 
-/* =========================
+/* ========================================
    FOOTER
-========================= */
+======================================== */
 
 footer {
     padding: 30px 0;
@@ -326,11 +453,19 @@ footer {
 
 .footer-content {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
+
     gap: 20px;
+
     color: var(--muted);
-    font-size: 12px;
+
+    font-size: 11px;
+}
+
+.footer-content a {
+    transition: color 0.2s ease;
 }
 
 .footer-content a:hover {
@@ -338,9 +473,9 @@ footer {
 }
 
 
-/* =========================
+/* ========================================
    MOBILE
-========================= */
+======================================== */
 
 @media (max-width: 700px) {
 
@@ -353,25 +488,27 @@ footer {
     }
 
     .nav-links {
-        gap: 14px;
+        gap: 15px;
     }
 
     .nav-links a {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .hero {
         min-height: auto;
-        padding: 150px 0 90px;
+
+        padding: 140px 0 90px;
     }
 
     h1 {
         font-size: clamp(58px, 17vw, 90px);
-        letter-spacing: -3px;
+
+        letter-spacing: -2.5px;
     }
 
     .hero-quote {
-        font-size: 23px;
+        font-size: 22px;
     }
 
     .section {
@@ -380,30 +517,39 @@ footer {
 
     .two-column {
         grid-template-columns: 1fr;
+
         gap: 35px;
     }
 
+    .section-text {
+        font-size: 15px;
+    }
+
     .skills-section {
-        padding-top: 40px;
+        padding-top: 55px;
     }
 
     .skills-list {
-        gap: 8px;
+        gap: 7px;
     }
 
     .skills-list span {
-        font-size: 13px;
-        padding: 9px 14px;
+        padding: 8px 12px;
+
+        font-size: 12px;
     }
 
     .contact-box {
-        padding: 40px 28px;
+        padding: 42px 28px;
+
         flex-direction: column;
+
         align-items: flex-start;
     }
 
     .footer-content {
         flex-direction: column;
+
         align-items: flex-start;
     }
 }
