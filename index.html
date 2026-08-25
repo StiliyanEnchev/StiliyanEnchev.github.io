@@ -95,6 +95,47 @@
     .section-text{ max-width:900px; color:var(--muted); font-size:17px; margin:0 auto; }
     .section-text p + p{ margin-top:24px; }
 
+    /* About bubbles - lighter and centered */
+    .about-bubbles {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+      margin-top:18px;
+      padding:0;
+      list-style:none;
+    }
+    .about-bubbles li {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.07);
+      padding:12px 20px;
+      border-radius:999px;
+      color:var(--text);
+      font-weight:600;
+      font-size:15px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+      transition: transform .22s ease, box-shadow .22s ease;
+      min-width: 220px;
+      max-width: 520px;
+      text-align:center;
+      line-height:1.25;
+      min-height:56px;
+    }
+    .about-bubbles li:hover, .about-bubbles li:focus {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+      outline: none;
+    }
+    @media (max-width:900px) {
+      .about-bubbles li { min-width: calc(50% - 18px); }
+    }
+    @media (max-width:520px) {
+      .about-bubbles li { min-width: calc(100% - 24px); }
+    }
+
     /* Skills (DESIGN UPDATED) */
     .skills-list-wrapper { max-width: var(--content-width); margin: 0 auto; }
     .skills-list {
@@ -107,7 +148,6 @@
       margin-top: 16px;
     }
 
-    /* Each skill is a larger card with icon + label */
     .skill-card {
       display:flex;
       align-items:center;
@@ -116,9 +156,9 @@
       border: 1px solid rgba(255,255,255,0.04);
       padding: 14px 18px;
       border-radius: 14px;
-      min-width: 220px;             /* bigger tiles so they wrap into multiple rows */
+      min-width: 220px;
       max-width: 320px;
-      font-size: 16px;              /* larger text */
+      font-size: 16px;
       color: var(--text);
       transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
       will-change: transform;
@@ -146,7 +186,6 @@
       box-shadow: inset 0 -2px 6px rgba(0,0,0,0.4);
     }
 
-    /* Make external SVGs appear white on dark backgrounds */
     .skill-icon img {
       width:100%;
       height:100%;
@@ -155,22 +194,18 @@
       filter: invert(1) brightness(2) saturate(0) contrast(100%);
     }
 
-    /* Inline SVG icons: force white fill/stroke */
     .skill-icon svg { width:100%; height:100%; display:block; fill: #ffffff; stroke: none; }
 
     .skill-label { font-weight:600; color: #eaeaea; letter-spacing:0.2px; }
 
-    /* Add a subtle float animation for "moving somehow" */
     @keyframes floaty {
       0% { transform: translateY(0px); }
       50% { transform: translateY(-6px); }
       100% { transform: translateY(0px); }
     }
-    /* apply to every second card to create slight motion variety */
     .skill-card:nth-child(2n) { animation: floaty 6s ease-in-out infinite; }
     .skill-card:nth-child(3n) { animation: floaty 7.2s ease-in-out infinite; }
 
-    /* Responsive: on narrow screens, make the tiles fill width in two columns */
     @media (max-width:900px) {
       .skill-card { min-width: calc(50% - 28px); }
     }
@@ -179,7 +214,7 @@
       .skill-icon { width:40px; height:40px; }
     }
 
-    /* Bookshelf / Certificates styles (kept) */
+    /* Bookshelf / Certificates styles */
     .bookshelf { margin: 28px auto 0; max-width: calc(var(--content-width)); color: var(--text); }
     .gr_grid_container { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px; align-items: start; justify-items: center; padding: 8px 6px; margin: 0 auto; }
     .gr_grid_book_container { float: none; width: 100%; max-width: 140px; height: auto; padding: 0; overflow: hidden; display:flex; align-items:center; justify-content:center; background:transparent; }
@@ -268,6 +303,13 @@
 
             <div class="section-text">
               <p>I'm a Customer Service Representative based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas. This website is a collection of the things I enjoy, create, learn and work on - from AI-generated artwork and writing to books, technology and everything in between.</p>
+
+              <ul class="about-bubbles" role="list" aria-label="Summary bullets about me">
+                <li role="listitem" tabindex="0">Customer support professional with 6 years of experience</li>
+                <li role="listitem" tabindex="0">2 years learning/programming with Python</li>
+                <li role="listitem" tabindex="0">Building projects and continuously improving</li>
+              </ul>
+
             </div>
           </div>
         </div>
@@ -336,7 +378,7 @@
       </div>
     </section>
 
-    <!-- SKILLS (updated: bigger cards, white icons, ensured missing icons show) -->
+    <!-- SKILLS (icons + fallbacks) -->
     <section id="skills" class="section skills-section" aria-labelledby="skills-title">
       <div class="container">
         <div class="content">
@@ -345,9 +387,6 @@
 
           <div class="skills-list-wrapper" aria-label="Things I work with">
             <div class="skills-list" role="list">
-              <!-- Using CDN icons where available (made white with CSS filter).
-                   For items where official icon CDN slugs are flaky or missing,
-                   inline SVG initials are used to guarantee visibility. -->
 
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
@@ -419,14 +458,9 @@
                 <span class="skill-label">AI-Generated Artwork</span>
               </span>
 
-              <!-- The next six were previously missing on CDN for some users.
-                   To guarantee they are visible, we use inline SVG initials
-                   styled to appear as brand-style tiles. You can swap these
-                   for official inline SVGs later if you prefer exact brand shapes. -->
-
+              <!-- Inline initials for items that may not reliably exist on CDN -->
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
-                  <!-- SUNO AI initials tile -->
                   <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SUNO">
                     <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
                     <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="16" fill="#0b0b0b">SN</text>
@@ -437,7 +471,6 @@
 
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
-                  <!-- Wix initials tile -->
                   <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wix">
                     <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
                     <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">WX</text>
@@ -448,7 +481,6 @@
 
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
-                  <!-- WordPress initials tile -->
                   <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WordPress">
                     <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
                     <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">WP</text>
@@ -459,7 +491,6 @@
 
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
-                  <!-- Krea AI initials tile -->
                   <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Krea">
                     <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
                     <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">KR</text>
@@ -470,7 +501,6 @@
 
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
-                  <!-- GitHub Copilot initials tile -->
                   <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GitHub Copilot">
                     <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
                     <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="12" fill="#0b0b0b">GC</text>
@@ -481,7 +511,6 @@
 
               <span class="skill-card" role="listitem">
                 <span class="skill-icon" aria-hidden="true">
-                  <!-- ChatGPT initials tile -->
                   <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ChatGPT">
                     <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
                     <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="12" fill="#0b0b0b">CG</text>
@@ -518,6 +547,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
@@ -530,19 +560,18 @@
   </footer>
 
   <script>
-    // Ensure external icons show as white; if an external icon fails to load,
-    // replace it with an inline initials SVG (defensive fallback).
+    // Defensive fallback: if an external icon image fails to load, replace it with initials SVG.
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.skill-icon img').forEach(function(img){
         img.addEventListener('error', function () {
           var parent = img.parentNode;
           var alt = img.getAttribute('alt') || '';
-          // pick initials from alt or default 'AI'
           var initials = (alt.split(' ')[0] || 'AI').slice(0,2).toUpperCase();
           var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
           svg.setAttribute('viewBox','0 0 46 46');
           svg.setAttribute('width','46');
           svg.setAttribute('height','46');
+          svg.setAttribute('aria-hidden','true');
           svg.innerHTML = '<rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>' +
                           '<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="14" fill="#0b0b0b">'+initials+'</text>';
           img.replaceWith(svg);
