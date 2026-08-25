@@ -1,228 +1,202 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Stiliyan Enchev - personal portfolio, creative work, writing, AI artwork and books." />
-    <meta name="theme-color" content="#080808" />
-    <title>Stiliyan Enchev | Personal Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Stiliyan Enchev - personal portfolio, creative work, writing, AI artwork and books." />
+  <title>Stiliyan Enchev | Personal Portfolio</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
-    <style>
-        :root{
-            --background:#080808;
-            --surface:#111111;
-            --text:#f5f5f5;
-            --muted:#999999;
-            --border:#292929;
-            --white:#ffffff;
-            --max-width:1180px;
-            --content-width:900px; /* unified inner width for all sections */
-            --section-padding:100px;
-            --header-height:76px;
-        }
+  <style>
+    :root{
+      --background:#080808;
+      --surface:#111111;
+      --text:#f5f5f5;
+      --muted:#999999;
+      --border:#292929;
+      --white:#ffffff;
+      --max-width:1180px;
+      --content-width:900px;
+      --section-padding:100px;
+      --header-height:76px;
+    }
 
-        *{margin:0;padding:0;box-sizing:border-box;}
-        html{scroll-behavior:smooth;}
-        body{
-            background:var(--background);
-            color:var(--text);
-            font-family:"DM Sans",sans-serif;
-            line-height:1.6;
-        }
-        a{color:inherit;text-decoration:none;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--background);
+      color:var(--text);
+      font-family:"DM Sans",sans-serif;
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none;}
 
-        .container{
-            width: min(var(--max-width), calc(100% - 32px));
-            margin: 0 auto;
-        }
+    .container{ width: min(var(--max-width), calc(100% - 32px)); margin:0 auto; }
+    .content, .hero-content { max-width: var(--content-width); margin:0 auto; }
 
-        /* center the actual content inside each container */
-        .content,
-        .hero-content {
-            max-width: var(--content-width);
-            margin: 0 auto;
-        }
+    .site-header{ position:fixed; top:0; left:0; width:100%; height:var(--header-height); z-index:1000; background:rgba(8,8,8,0.88); backdrop-filter:blur(15px); border-bottom:1px solid var(--border); }
+    .nav{ height:100%; display:flex; align-items:center; justify-content:space-between; }
+    .logo{ font-family:"Playfair Display", serif; font-size:25px; font-weight:600; }
+    .logo span{ color:#777777; }
+    .nav-links{ display:flex; gap:32px; }
+    .nav-links a{ color:var(--muted); font-size:14px; transition:color .2s; }
+    .nav-links a:hover{ color:var(--white); }
 
-        /* Skip link */
-        .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
-        .skip-link:focus{left:16px;top:16px;width:auto;height:auto;padding:8px 12px;background:var(--white);color:#000;border-radius:4px;z-index:2000;}
+    .eyebrow{ color:#888888; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
+    h1,h2{ font-family:"Playfair Display", serif; font-weight:500; }
+    h1{ font-size:clamp(64px,9vw,120px); line-height:0.92; letter-spacing:-4px; margin:0; }
+    h1 span{ color:#777777; }
+    h2{ font-size:clamp(36px,5vw,58px); line-height:1.05; letter-spacing:-1.5px; margin:0; }
 
-        /* Header */
-        .site-header{
-            position:fixed;top:0;left:0;width:100%;height:var(--header-height);z-index:1000;
-            background:rgba(8,8,8,0.88);backdrop-filter:blur(15px);border-bottom:1px solid var(--border);
-        }
-        .nav{height:100%;display:flex;align-items:center;justify-content:space-between;}
-        .logo{font-family:"Playfair Display",serif;font-size:25px;font-weight:600;}
-        .logo span{color:#777777;}
-        .nav-links{display:flex;gap:32px;}
-        .nav-links a{color:var(--muted);font-size:14px;transition:color 0.2s ease;}
-        .nav-links a:hover{color:var(--white);}
+    main{ padding-top:var(--header-height); }
 
-        /* Typography */
-        .eyebrow{color:#888888;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
-        h1,h2{font-family:"Playfair Display",serif;font-weight:500;}
-        h1{font-size:clamp(64px,9vw,120px);line-height:0.92;letter-spacing:-4px;}
-        h1 span{color:#777777;}
-        h2{font-size:clamp(36px,5vw,58px);line-height:1.05;letter-spacing:-1.5px;}
+    .hero{ min-height:calc(100vh - var(--header-height)); display:flex; align-items:center; padding:var(--section-padding) 0; background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04), transparent 30%); }
+    .hero h2{ font-family:"DM Sans", sans-serif; font-size:20px; font-weight:500; color:var(--muted); margin-top:12px; }
+    .hero-quote{ max-width:650px; margin-top:20px; font-family:"Playfair Display", serif; font-size:clamp(23px,3vw,34px); line-height:1.35; color:#dddddd; }
+    .location{ margin-top:16px; color:var(--muted); font-size:15px; }
 
-        /* Main and unified spacing */
-        main{padding-top:var(--header-height);} /* avoid header overlap */
+    .name-row{ display:flex; align-items:center; gap:18px; }
+    .avatar{
+      width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border); display:block;
+      flex:0 0 120px;
+    }
+    @media (max-width:700px){ .avatar{ width:80px; height:80px; flex:0 0 80px; } h1{ font-size:clamp(58px,17vw,90px); letter-spacing:-3px; } .hero-quote{ font-size:23px; } }
 
-        .hero{
-            min-height:calc(100vh - var(--header-height));
-            display:flex;align-items:center;
-            padding:var(--section-padding) 0;
-            background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04), transparent 30%);
-        }
+    .section{ padding:var(--section-padding) 0; border-top:1px solid var(--border); }
+    .two-column{ width:100%; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .section-text{ max-width:650px; color:var(--muted); font-size:17px; }
+    .section-text p + p{ margin-top:24px; }
 
-        .hero h1{margin-top:18px;}
-        .hero h2{
-            font-family:"DM Sans",sans-serif;font-size:20px;font-weight:500;color:var(--muted);margin-top:28px;
-        }
-        .hero-quote{
-            max-width:650px;margin-top:30px;font-family:"Playfair Display",serif;font-size:clamp(23px,3vw,34px);line-height:1.35;color:#dddddd;
-        }
-        .location{margin-top:20px;color:var(--muted);font-size:15px;}
+    .skills-list{ display:flex; flex-wrap:wrap; gap:8px; }
+    .skills-list span{ display:inline-flex; align-items:center; padding:8px 15px; border:1px solid var(--border); border-radius:30px; background:var(--surface); color:#cccccc; font-size:13px; transition:transform .2s, background .2s, color .2s; }
+    .skills-list span:hover{ transform:translateY(-2px); background:var(--white); color:#000; }
 
-        .section{
-            padding:var(--section-padding) 0;
-            border-top:1px solid var(--border);
-        }
+    footer{ padding:var(--section-padding) 0; }
+    .footer-content{ display:flex; justify-content:space-between; align-items:center; gap:20px; color:#777777; font-size:12px; }
+    .footer-content a:hover{ color:white; }
 
-        /* Two-column layout stays inside the .content wrapper so it aligns with hero */
-        .two-column{
-            width:100%;
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:80px;
-            align-items:start;
-        }
-        .two-column h2{margin-top:18px;}
-        .section-text{max-width:650px;color:var(--muted);font-size:17px;}
-        .section-text p + p{margin-top:24px;}
-
-        /* Skills */
-        .skills-section{padding-top:60px;padding-bottom:100px;}
-        .skills-section h2{margin-top:15px;margin-bottom:28px;font-size:40px;}
-        .skills-list{display:flex;flex-wrap:wrap;gap:8px; /* constrained by .content */ }
-        .skills-list span{
-            display:inline-flex;align-items:center;padding:8px 15px;border:1px solid var(--border);border-radius:30px;background:var(--surface);
-            color:#cccccc;font-size:13px;transition:transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-        }
-        .skills-list span:hover{transform:translateY(-2px);background:var(--white);color:#000000;}
-
-        /* Footer */
-        footer{padding:var(--section-padding) 0;}
-        .footer-content{display:flex;justify-content:space-between;align-items:center;gap:20px;color:#777777;font-size:12px;}
-        .footer-content a:hover{color:white;}
-
-        /* Mobile adjustments */
-        @media (max-width:700px){
-            :root{--section-padding:70px;}
-            .container{width:calc(100% - 32px);}
-            .nav{height:68px;}
-            .nav-links{gap:14px;}
-            .nav-links a{font-size:12px;}
-            .hero{min-height:auto;padding:var(--section-padding) 0;}
-            h1{font-size:clamp(58px,17vw,90px);letter-spacing:-3px;}
-            .hero-quote{font-size:23px;}
-            .section{padding:var(--section-padding) 0;}
-            .two-column{grid-template-columns:1fr;gap:35px;}
-            .skills-section{padding-top:var(--section-padding);}
-            .skills-section h2{font-size:34px;}
-            .skills-list{gap:7px;}
-            .skills-list span{font-size:12px;padding:8px 13px;}
-            .footer-content{flex-direction:column;align-items:flex-start;}
-        }
-    </style>
+    @media (max-width:700px){
+      :root{ --section-padding:70px; }
+      .container{ width:calc(100% - 32px); }
+      .nav{ height:68px; }
+      .nav-links{ gap:14px; }
+      .nav-links a{ font-size:12px; }
+      .section{ padding:var(--section-padding) 0; }
+      .two-column{ grid-template-columns:1fr; gap:35px; }
+      .skills-section h2{ font-size:34px; }
+      .skills-list{ gap:7px; }
+      .skills-list span{ font-size:12px; padding:8px 13px; }
+      .footer-content{ flex-direction:column; align-items:flex-start; }
+    }
+  </style>
 </head>
 <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" role="banner">
+    <nav class="nav container" role="navigation" aria-label="Main navigation">
+      <a class="logo" href="#home">Stiliyan<span>.</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+      </div>
+    </nav>
+  </header>
 
-    <header class="site-header" role="banner">
-        <nav class="nav container" role="navigation" aria-label="Main navigation">
-            <a class="logo" href="#home">Stiliyan<span>.</span></a>
-            <div class="nav-links" aria-hidden="false">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-            </div>
-        </nav>
-    </header>
+  <main id="main">
+    <!-- HERO -->
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow">ABOUT ME</p>
 
-    <main id="main">
-        <!-- HERO -->
-        <section id="home" class="hero" aria-labelledby="hero-title">
-            <div class="container">
-                <div class="hero-content">
-                    <p class="eyebrow">ABOUT ME</p>
-                    <h1 id="hero-title">Stiliyan<br><span>Enchev</span></h1>
-                    <h2>Customer Service Representative</h2>
-                    <p class="hero-quote">Everybody has to do what they love, so they can love what they do.</p>
-                    <p class="location">Varna, Bulgaria</p>
+          <!-- Name row with avatar -->
+          <div class="name-row">
+            <!-- PUT YOUR PHOTO HERE:
+                 The file name you provided: prof photo.jpg
+                 Place prof photo.jpg in the same folder as this HTML file.
+                 The src below references the filename with the space encoded.
+                 If you prefer, rename the file to prof-photo.jpg and use src="prof-photo.jpg" instead.
+            -->
+            <img
+              class="avatar"
+              src="prof-20photo.jpg"
+              srcset="prof%20photo.jpg 400w, prof%20photo.jpg 800w"
+              sizes="(max-width:700px) 80px, 120px"
+              alt="Stiliyan Enchev"
+              width="120"
+              height="120"
+            />
 
-                    <div class="social-links" aria-label="Social links">
-                        <a href="https://linktr.ee/SEnchev" target="_blank" rel="noopener noreferrer">Linktree ↗</a>
-                        <a href="https://linkedin.com/in/stiliyan-enchev-1412b3146" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-                        <a href="https://github.com/StiliyanEnchev" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <h1 id="hero-title">Stiliyan<br><span>Enchev</span></h1>
+          </div>
+          <!-- end name row -->
 
-        <!-- ABOUT -->
-        <section id="about" class="section" aria-labelledby="about-title">
-            <div class="container">
-                <div class="content">
-                    <div class="two-column">
-                        <div>
-                            <p class="eyebrow">01 / ABOUT</p>
-                            <h2 id="about-title">A little bit about me.</h2>
-                        </div>
+          <h2>Customer Service Representative</h2>
 
-                        <div class="section-text">
-                            <p>I'm a Customer Service Representative based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas.</p>
-                            <p>This website is a collection of the things I enjoy, create, learn and work on - from AI-generated artwork and writing to books, technology and everything in between.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <p class="hero-quote">Everybody has to do what they love, so they can love what they do.</p>
+          <p class="location">Varna, Bulgaria</p>
 
-        <!-- SKILLS -->
-        <section id="skills" class="section skills-section" aria-labelledby="skills-title">
-            <div class="container">
-                <div class="content">
-                    <p class="eyebrow">02 / SKILLS &amp; INTERESTS</p>
-                    <h2 id="skills-title">Things I work with.</h2>
-
-                    <div class="skills-list" role="list">
-                        <span role="listitem">Python</span>
-                        <span role="listitem">Django</span>
-                        <span role="listitem">REST APIs</span>
-                        <span role="listitem">React</span>
-                        <span role="listitem">SQL</span>
-                        <span role="listitem">Git &amp; GitHub</span>
-                        <span role="listitem">Docker</span>
-                        <span role="listitem">Testing</span>
-                        <span role="listitem">Canva</span>
-                        <span role="listitem">AI-Generated Artwork</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer role="contentinfo">
-        <div class="container">
-            <div class="content footer-content">
-                <span>© 2026 Stiliyan Enchev</span>
-                <a href="https://github.com/StiliyanEnchev" target="_blank" rel="noopener noreferrer">github.com/StiliyanEnchev</a>
-            </div>
+          <div class="social-links" style="margin-top:20px;">
+            <a href="https://linktr.ee/SEnchev" target="_blank" rel="noopener noreferrer">Linktree ↗</a>
+            <span style="margin:0 8px">•</span>
+            <a href="https://linkedin.com/in/stiliyan-enchev-1412b3146" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <span style="margin:0 8px">•</span>
+            <a href="https://github.com/StiliyanEnchev" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <div class="content">
+          <div class="two-column">
+            <div>
+              <p class="eyebrow">01 / ABOUT</p>
+              <h2 id="about-title">A little bit about me.</h2>
+            </div>
+
+            <div class="section-text">
+              <p>I'm a Customer Service Representative based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas.</p>
+              <p>This website is a collection of the things I enjoy, create, learn and work on - from AI-generated artwork and writing to books, technology and everything in between.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section skills-section" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="content">
+          <p class="eyebrow">02 / SKILLS &amp; INTERESTS</p>
+          <h2 id="skills-title">Things I work with.</h2>
+
+          <div class="skills-list" role="list" style="margin-top:16px;">
+            <span role="listitem">Python</span>
+            <span role="listitem">Django</span>
+            <span role="listitem">REST APIs</span>
+            <span role="listitem">React</span>
+            <span role="listitem">SQL</span>
+            <span role="listitem">Git &amp; GitHub</span>
+            <span role="listitem">Docker</span>
+            <span role="listitem">Testing</span>
+            <span role="listitem">Canva</span>
+            <span role="listitem">AI-Generated Artwork</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="content footer-content">
+        <span>© 2026 Stiliyan Enchev</span>
+        <a href="https://github.com/StiliyanEnchev" target="_blank" rel="noopener noreferrer">github.com/StiliyanEnchev</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
