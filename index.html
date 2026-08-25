@@ -20,6 +20,11 @@
       --content-width:900px;
       --section-padding:100px;
       --header-height:76px;
+
+      /* Avatar sizes */
+      --avatar-size: 220px;         /* desktop */
+      --avatar-size-medium: 180px;  /* tablet-ish */
+      --avatar-size-mobile: 140px;  /* phones */
     }
 
     *{margin:0;padding:0;box-sizing:border-box;}
@@ -56,12 +61,19 @@
     .hero-quote{ max-width:650px; margin-top:20px; font-family:"Playfair Display", serif; font-size:clamp(23px,3vw,34px); line-height:1.35; color:#dddddd; }
     .location{ margin-top:16px; color:var(--muted); font-size:15px; }
 
-    .name-row{ display:flex; align-items:center; gap:18px; }
+    /* NAME ROW: name left, avatar right (bigger) */
+    .name-row{ display:flex; align-items:center; gap:20px; justify-content:flex-start; flex-wrap:wrap; }
+    .name-row h1{ margin-right: 12px; }
     .avatar{
-      width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border); display:block;
-      flex:0 0 120px;
+      width:var(--avatar-size);
+      height:var(--avatar-size);
+      border-radius:50%;
+      object-fit:cover;
+      border:3px solid var(--border);
+      display:block;
+      flex:0 0 var(--avatar-size);
+      margin-left: 12px;
     }
-    @media (max-width:700px){ .avatar{ width:80px; height:80px; flex:0 0 80px; } h1{ font-size:clamp(58px,17vw,90px); letter-spacing:-3px; } .hero-quote{ font-size:23px; } }
 
     .section{ padding:var(--section-padding) 0; border-top:1px solid var(--border); }
     .two-column{ width:100%; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
@@ -76,8 +88,14 @@
     .footer-content{ display:flex; justify-content:space-between; align-items:center; gap:20px; color:#777777; font-size:12px; }
     .footer-content a:hover{ color:white; }
 
+    /* medium screens */
+    @media (max-width:900px){
+      :root{ --avatar-size: var(--avatar-size-medium); }
+    }
+
+    /* mobile */
     @media (max-width:700px){
-      :root{ --section-padding:70px; }
+      :root{ --section-padding:70px; --avatar-size: var(--avatar-size-mobile); }
       .container{ width:calc(100% - 32px); }
       .nav{ height:68px; }
       .nav-links{ gap:14px; }
@@ -88,6 +106,8 @@
       .skills-list{ gap:7px; }
       .skills-list span{ font-size:12px; padding:8px 13px; }
       .footer-content{ flex-direction:column; align-items:flex-start; }
+      h1{ font-size:clamp(58px,17vw,90px); letter-spacing:-3px; }
+      .hero-quote{ font-size:23px; }
     }
   </style>
 </head>
@@ -109,25 +129,24 @@
         <div class="hero-content">
           <p class="eyebrow">ABOUT ME</p>
 
-          <!-- Name row with avatar -->
+          <!-- Name row: name left, photo right -->
           <div class="name-row">
-            <!-- PUT YOUR PHOTO HERE:
-                 The file name you provided: prof photo.jpg
-                 Place prof photo.jpg in the same folder as this HTML file.
-                 The src below references the filename with the space encoded.
-                 If you prefer, rename the file to prof-photo.jpg and use src="prof-photo.jpg" instead.
+            <!-- Name first -->
+            <h1 id="hero-title">Stiliyan<br><span>Enchev</span></h1>
+
+            <!-- Photo after the name so it sits on the right.
+                 PUT YOUR PHOTO FILE HERE: replace the src value if needed.
+                 Current filename: prof photo.jpg (URL-encoded below).
             -->
             <img
               class="avatar"
-              src="prof-20photo.jpg"
+              src="prof%20photo.jpg"
               srcset="prof%20photo.jpg 400w, prof%20photo.jpg 800w"
-              sizes="(max-width:700px) 80px, 120px"
+              sizes="(max-width:700px) 140px, (max-width:900px) 180px, 220px"
               alt="Stiliyan Enchev"
-              width="120"
-              height="120"
+              width="220"
+              height="220"
             />
-
-            <h1 id="hero-title">Stiliyan<br><span>Enchev</span></h1>
           </div>
           <!-- end name row -->
 
