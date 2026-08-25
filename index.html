@@ -38,7 +38,7 @@
     }
     a{color:inherit;text-decoration:none;}
 
-    /* page layout */
+    /* Page layout */
     .container{
       width: min(var(--max-width), calc(100% - 64px));
       margin:0 auto;
@@ -46,7 +46,7 @@
     }
     .content, .hero-content { max-width: var(--content-width); margin:0 auto; text-align:center; }
 
-    /* header */
+    /* Header */
     .site-header{ position:fixed; top:0; left:0; width:100%; height:var(--header-height); z-index:1000; background:rgba(8,8,8,0.88); backdrop-filter:blur(15px); border-bottom:1px solid var(--border); }
     .nav{ height:100%; display:flex; align-items:center; justify-content:center; gap:48px; }
     .logo{ font-family:"Playfair Display", serif; font-size:25px; font-weight:600; }
@@ -55,7 +55,7 @@
     .nav-links a{ color:var(--muted); font-size:14px; transition:color .2s; }
     .nav-links a:hover{ color:var(--white); }
 
-    /* typography */
+    /* Typography */
     .eyebrow{ color:#888888; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; display:block; text-align:center; margin-bottom:8px; }
     h1,h2{ font-family:"Playfair Display", serif; font-weight:500; text-align:center; }
     h1{ font-size:clamp(64px,9vw,120px); line-height:0.92; letter-spacing:-4px; margin:0; }
@@ -69,7 +69,7 @@
     .hero-quote{ max-width:820px; margin:20px auto 0; font-family:"Playfair Display", serif; font-size:clamp(23px,3vw,34px); line-height:1.35; color:#dddddd; }
     .location{ margin-top:16px; color:var(--muted); font-size:15px; }
 
-    /* name row */
+    /* Name row */
     .name-row{
       display:inline-flex;
       align-items:center;
@@ -89,7 +89,7 @@
       flex:0 0 var(--avatar-size);
     }
 
-    /* sections */
+    /* Sections */
     .section{ padding:var(--section-padding) 0; border-top:1px solid var(--border); }
     .two-column{ width:100%; display:flex; flex-direction:column; align-items:center; gap:28px; }
     .section-text{ max-width:900px; color:var(--muted); font-size:17px; margin:0 auto; }
@@ -99,7 +99,7 @@
     .skills-list span{ display:inline-flex; align-items:center; padding:8px 15px; border:1px solid var(--border); border-radius:30px; background:var(--surface); color:#cccccc; font-size:13px; transition:transform .2s, background .2s, color .2s; }
     .skills-list span:hover{ transform:translateY(-2px); background:var(--white); color:#000; }
 
-    /* Bookshelf (Goodreads) specific styles to integrate with site */
+    /* Bookshelf styles */
     .bookshelf {
       background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
       border: 1px solid rgba(255,255,255,0.03);
@@ -108,6 +108,7 @@
       display: block;
       margin: 28px auto 0;
       max-width: calc(var(--content-width));
+      color: var(--text);
     }
 
     .bookshelf h2 {
@@ -116,15 +117,15 @@
       color: var(--text);
     }
 
-    /* Override Goodreads grid container to use CSS Grid and center the items */
+    /* Goodreads grid: responsive CSS grid instead of floats */
     .gr_grid_container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
       gap: 16px;
       align-items: start;
       justify-items: center;
-      padding: 8px;
-      margin: 0;
+      padding: 8px 6px;
+      margin: 0 auto;
     }
 
     .gr_grid_book_container {
@@ -150,20 +151,21 @@
     }
 
     .gr_grid_book_container a:hover img {
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-6px) scale(1.03);
       box-shadow: 0 12px 28px rgba(0,0,0,0.55);
     }
 
+    /* Branding/link below grid */
     .gr_grid_branding {
       display: inline-block;
       color: var(--muted);
       text-decoration: none;
-      margin-top: 10px;
+      margin-top: 14px;
       font-size: 0.95em;
     }
     .gr_grid_branding:hover { color: var(--white); }
 
-    /* small screens: fewer columns, adjust cover size */
+    /* Responsiveness */
     @media (max-width:1100px){
       :root{ --content-width:900px; }
       .gr_grid_container { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 14px; }
@@ -253,10 +255,9 @@
     <section id="bookshelf" class="section" aria-labelledby="bookshelf-title">
       <div class="container">
         <div class="bookshelf" role="region" aria-labelledby="bookshelf-title">
-          <h2 id="bookshelf-title">Read — My bookshelf</h2>
 
-          <!-- Goodreads static HTML (keeps working without JS) -->
-          <div id="gr_grid_widget_1787652834">
+          <!-- NEW Goodreads static HTML (widget id 1787653292) -->
+          <div id="gr_grid_widget_1787653292">
             <div class="gr_grid_container">
               <div class="gr_grid_book_container"><a title="Виждам те" rel="nofollow" href="https://www.goodreads.com/book/show/34827581"><img alt="Виждам те" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1491732094l/34827581._SX98_.jpg" /></a></div>
               <div class="gr_grid_book_container"><a title="Не пускай ножа (Живият хаос, #1)" rel="nofollow" href="https://www.goodreads.com/book/show/10430349"><img alt="Не пускай ножа" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1297365832l/10430349._SX98_.jpg" /></a></div>
@@ -280,17 +281,16 @@
               <div class="gr_grid_book_container"><a title="Лято" rel="nofollow" href="https://www.goodreads.com/book/show/32469192"><img alt="Лято" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1475682597l/32469192._SX98_.jpg" /></a></div>
             </div>
 
-            <div style="margin-top:14px; text-align:right;">
+            <!-- Branding link centered and below the grid -->
+            <div style="margin-top:14px; text-align:center;">
               <a class="gr_grid_branding" rel="nofollow" href="https://www.goodreads.com/user/show/72587974-stiliyan-enchev">Stiliyan Enchev's favorite books »</a>
             </div>
 
             <noscript><div style="margin-top:12px; color:var(--muted);">Share <a rel="nofollow" href="/">book reviews</a> and ratings with Stiliyan, and even join a <a rel="nofollow" href="/group">book club</a> on Goodreads.</div></noscript>
           </div>
 
-          <!-- Goodreads widget script (optional) - URL-encoded so it should load correctly.
-               If the script causes issues you can remove this tag and the static HTML above will remain.
-          -->
-          <script src="https://www.goodreads.com/review/grid_widget/72587974.Stiliyan%27s%20bookshelf%3A%20read?cover_size=medium&hide_link=&hide_title=&num_books=20&order=a&shelf=read&sort=date_added&widget_id=1787652834" type="text/javascript" charset="utf-8"></script>
+          <!-- Goodreads widget script (optional) - included as you provided -->
+          <script src="https://www.goodreads.com/review/grid_widget/72587974.My%20bookshelf?cover_size=medium&hide_link=&hide_title=&num_books=30&order=a&shelf=read&sort=date_added&widget_id=1787653292" type="text/javascript" charset="utf-8"></script>
         </div>
       </div>
     </section>
