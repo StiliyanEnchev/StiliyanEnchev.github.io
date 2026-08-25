@@ -140,7 +140,6 @@
     .cert-card {
       width: 100%;
       max-width: 320px;
-      display: block;
       background: transparent;
       border-radius: 8px;
       overflow: hidden;
@@ -148,11 +147,6 @@
       aspect-ratio: 4 / 5; /* default tile ratio */
       display: flex;
       flex-direction: column;
-    }
-
-    /* Make the first card slightly wider aspect if desired */
-    .cert-grid > .cert-card:first-child img {
-      /* first image will appear larger because its container spans more grid cells */
     }
 
     /* Image fills the card entirely and crops when needed so all cards look consistent */
@@ -178,6 +172,8 @@
       font-size: 14px;
       text-align: center;
     }
+
+    .social-links { margin-top:20px; }
 
     /* Responsive adjustments */
     @media (min-width:1200px) {
@@ -210,8 +206,8 @@
       <a class="logo" href="#home">Stiliyan<span>.</span></a>
       <div class="nav-links">
         <a href="#about">About</a>
+        <a href="#certificates">Certificates</a>
         <a href="#bookshelf">Bookshelf</a>
-        <a href="#certificates">Certificats</a>
         <a href="#skills">Skills</a>
       </div>
     </nav>
@@ -229,8 +225,8 @@
 
             <img
               class="avatar"
-              src="prof%20photo.jpg"
-              srcset="prof%20photo.jpg 400w, prof%20photo.jpg 800w"
+              src="prof-photo.jpg"
+              srcset="prof-photo.jpg 400w, prof-photo.jpg 800w"
               sizes="(max-width:700px) 140px, (max-width:900px) 180px, 220px"
               alt="Stiliyan Enchev"
               width="220"
@@ -243,7 +239,7 @@
           <p class="hero-quote">Everybody has to do what they love, so they can love what they do.</p>
           <p class="location">Varna, Bulgaria</p>
 
-          <div class="social-links" style="margin-top:20px;">
+          <div class="social-links">
             <a href="https://linktr.ee/SEnchev" target="_blank" rel="noopener noreferrer">Linktree ↗</a>
             <span style="margin:0 8px">•</span>
             <a href="https://linkedin.com/in/stiliyan-enchev-1412b3146" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
@@ -273,6 +269,70 @@
       </div>
     </section>
 
+    <!-- CERTIFICATES (moved before bookshelf) -->
+    <section id="certificates" class="section" aria-labelledby="certificates-title">
+      <div class="container">
+        <div class="certificates" role="region" aria-labelledby="certificates-title">
+          <h2 id="certificates-title">Certificates</h2>
+
+          <p style="color:var(--muted); margin-top:6px;">Certificates &amp; diplomas.</p>
+
+          <div class="cert-grid">
+            <!-- Diploma (always first) -->
+            <figure class="cert-card">
+              <a href="diploma-python.png" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="diploma-python.png" alt="Diploma — Python" loading="eager" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">Diploma — Python</figcaption>
+            </figure>
+
+            <!-- Other certificates (all tiles have same box ratio; images will be cropped to fit) -->
+            <figure class="cert-card">
+              <a href="html-intro.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="html-intro.jpg" alt="Intro to HTML" loading="lazy" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">Intro — HTML</figcaption>
+            </figure>
+
+            <figure class="cert-card">
+              <a href="intro-css.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="intro-css.jpg" alt="Intro to CSS" loading="lazy" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">Intro — CSS</figcaption>
+            </figure>
+
+            <figure class="cert-card">
+              <a href="intro-javascript.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="intro-javascript.jpg" alt="Intro to JavaScript" loading="lazy" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">Intro — JavaScript</figcaption>
+            </figure>
+
+            <figure class="cert-card">
+              <a href="it-booster.png" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="it-booster.png" alt="IT Booster certificate" loading="lazy" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">IT Booster</figcaption>
+            </figure>
+
+            <figure class="cert-card">
+              <a href="javascript-intermediate.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="javascript-intermediate.jpg" alt="JavaScript Intermediate certificate" loading="lazy" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">JavaScript — Intermediate</figcaption>
+            </figure>
+
+            <figure class="cert-card">
+              <a href="python-intermediate.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="cert-img" src="python-intermediate.jpg" alt="Python Intermediate certificate" loading="lazy" width="800" height="1000" />
+              </a>
+              <figcaption class="cert-caption">Python — Intermediate</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- BOOKSHELF (Goodreads) -->
     <section id="bookshelf" class="section" aria-labelledby="bookshelf-title">
       <div class="container">
@@ -292,70 +352,6 @@
           </div>
 
           <script src="https://www.goodreads.com/review/grid_widget/72587974.My%20bookshelf?cover_size=medium&hide_link=&hide_title=&num_books=32&order=a&shelf=read&sort=date_added&widget_id=1787653292" type="text/javascript" charset="utf-8"></script>
-        </div>
-      </div>
-    </section>
-
-    <!-- CERTIFICATS -->
-    <section id="certificates" class="section" aria-labelledby="certificates-title">
-      <div class="container">
-        <div class="certificates" role="region" aria-labelledby="certificates-title">
-          <h2 id="certificates-title">Certificats</h2>
-
-          <p style="color:var(--muted); margin-top:6px;">Certificates & diplomas.</p>
-
-          <div class="cert-grid" aria-live="polite">
-            <!-- Diploma (always first) -->
-            <figure class="cert-card">
-              <a href="Diploma-python.png" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="Diploma-python.png" alt="Diploma — Python" loading="eager" />
-              </a>
-              <figcaption class="cert-caption">Diploma — Python</figcaption>
-            </figure>
-
-            <!-- Other certificates (all tiles have same box ratio; images will be cropped to fit) -->
-            <figure class="cert-card">
-              <a href="HTML-intro.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="HTML-intro.jpg" alt="Intro to HTML" loading="lazy" />
-              </a>
-              <figcaption class="cert-caption">Intro — HTML</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="Intro-CSS.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="Intro-CSS.jpg" alt="Intro to CSS" loading="lazy" />
-              </a>
-              <figcaption class="cert-caption">Intro — CSS</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="Intro-Javascript.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="Intro-Javascript.jpg" alt="Intro to JavaScript" loading="lazy" />
-              </a>
-              <figcaption class="cert-caption">Intro — JavaScript</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="IT booster.png" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="IT booster.png" alt="IT Booster certificate" loading="lazy" />
-              </a>
-              <figcaption class="cert-caption">IT Booster</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="JavaScript Intermediate.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="JavaScript Intermediate.jpg" alt="JavaScript Intermediate certificate" loading="lazy" />
-              </a>
-              <figcaption class="cert-caption">JavaScript — Intermediate</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="Python-intermediate.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="Python-intermediate.jpg" alt="Python Intermediate certificate" loading="lazy" />
-              </a>
-              <figcaption class="cert-caption">Python — Intermediate</figcaption>
-            </figure>
-          </div>
         </div>
       </div>
     </section>
