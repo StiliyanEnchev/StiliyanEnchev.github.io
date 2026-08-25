@@ -95,18 +95,97 @@
     .section-text{ max-width:900px; color:var(--muted); font-size:17px; margin:0 auto; }
     .section-text p + p{ margin-top:24px; }
 
-    .skills-list{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px auto 0; }
-    .skills-list span{ display:inline-flex; align-items:center; padding:8px 15px; border:1px solid var(--border); border-radius:30px; background:var(--surface); color:#cccccc; font-size:13px; transition:transform .2s, background .2s, color .2s; }
-    .skills-list span:hover{ transform:translateY(-2px); background:var(--white); color:#000; }
+    /* Skills (DESIGN UPDATED) */
+    .skills-list-wrapper { max-width: var(--content-width); margin: 0 auto; }
+    .skills-list {
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      justify-content:center;
+      align-items:center;
+      padding: 6px;
+      margin-top: 16px;
+    }
 
-    /* Bookshelf kept (styles omitted here for brevity) */
+    /* Each skill is a larger card with icon + label */
+    .skill-card {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 14px 18px;
+      border-radius: 14px;
+      min-width: 220px;             /* bigger tiles so they wrap into multiple rows */
+      max-width: 320px;
+      font-size: 16px;              /* larger text */
+      color: var(--text);
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
+      will-change: transform;
+      cursor:default;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      position:relative;
+      overflow:visible;
+    }
+
+    .skill-card:hover{
+      transform: translateY(-8px) rotate(-0.5deg) scale(1.03);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    }
+
+    .skill-icon {
+      width:46px;
+      height:46px;
+      flex:0 0 46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      background:linear-gradient(180deg,#0b0b0b,#141414);
+      padding:6px;
+      box-shadow: inset 0 -2px 6px rgba(0,0,0,0.4);
+    }
+
+    /* Make external SVGs appear white on dark backgrounds */
+    .skill-icon img {
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      filter: invert(1) brightness(2) saturate(0) contrast(100%);
+    }
+
+    /* Inline SVG icons: force white fill/stroke */
+    .skill-icon svg { width:100%; height:100%; display:block; fill: #ffffff; stroke: none; }
+
+    .skill-label { font-weight:600; color: #eaeaea; letter-spacing:0.2px; }
+
+    /* Add a subtle float animation for "moving somehow" */
+    @keyframes floaty {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0px); }
+    }
+    /* apply to every second card to create slight motion variety */
+    .skill-card:nth-child(2n) { animation: floaty 6s ease-in-out infinite; }
+    .skill-card:nth-child(3n) { animation: floaty 7.2s ease-in-out infinite; }
+
+    /* Responsive: on narrow screens, make the tiles fill width in two columns */
+    @media (max-width:900px) {
+      .skill-card { min-width: calc(50% - 28px); }
+    }
+    @media (max-width:520px) {
+      .skill-card { min-width: calc(100% - 24px); }
+      .skill-icon { width:40px; height:40px; }
+    }
+
+    /* Bookshelf / Certificates styles (kept) */
     .bookshelf { margin: 28px auto 0; max-width: calc(var(--content-width)); color: var(--text); }
     .gr_grid_container { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px; align-items: start; justify-items: center; padding: 8px 6px; margin: 0 auto; }
     .gr_grid_book_container { float: none; width: 100%; max-width: 140px; height: auto; padding: 0; overflow: hidden; display:flex; align-items:center; justify-content:center; background:transparent; }
     .gr_grid_book_container img { width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.45); transition: transform .18s ease, box-shadow .18s ease; }
     .gr_grid_book_container a:hover img { transform: translateY(-6px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.55); }
 
-    /* CERTIFICATES SECTION (updated) */
     .certificates {
       background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
       border: 1px solid rgba(255,255,255,0.03);
@@ -116,85 +195,12 @@
       max-width: calc(var(--content-width));
       color: var(--text);
     }
-
-    /* Responsive grid that adapts number of columns */
-    .cert-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      align-items: stretch;
-      justify-items: center;
-      margin-top: 12px;
-      /* ensure items have consistent row height if spanning */
-      grid-auto-rows: 1fr;
-    }
-
-    /* Diploma (first) emphasized: spans 2 columns and 2 rows on wide screens */
-    .cert-grid > .cert-card:first-child {
-      grid-column: span 2;
-      grid-row: span 2;
-      width: 100%;
-      max-width: 520px;
-    }
-
-    .cert-card {
-      width: 100%;
-      max-width: 320px;
-      background: transparent;
-      border-radius: 8px;
-      overflow: hidden;
-      /* make a uniform box with aspect-ratio so all tiles match */
-      aspect-ratio: 4 / 5; /* default tile ratio */
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Image fills the card entirely and crops when needed so all cards look consistent */
-    .cert-card .cert-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border-radius: 6px;
-      transition: transform .18s ease, box-shadow .18s ease;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.55);
-      background: linear-gradient(180deg, #111 0%, #0b0b0b 100%);
-    }
-
-    .cert-card a:hover .cert-img {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 18px 36px rgba(0,0,0,0.65);
-    }
-
-    .cert-caption {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .social-links { margin-top:20px; }
-
-    /* Responsive adjustments */
-    @media (min-width:1200px) {
-      .cert-grid { gap: 24px; }
-      .cert-grid > .cert-card:first-child { grid-column: span 2; grid-row: span 2; }
-    }
-
-    @media (max-width:900px){
-      /* smaller screens: first card spans full width so no awkward gaps */
-      .cert-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
-      .cert-grid > .cert-card:first-child { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 16 / 9; max-width: 720px; }
-    }
-
-    @media (max-width:700px){
-      :root{ --section-padding:70px; --avatar-size: var(--avatar-size-mobile); --content-width:calc(100% - 48px); }
-      .container{ width:calc(100% - 48px); }
-      .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .cert-grid > .cert-card:first-child { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 16 / 9; max-width: 100%; }
-      .cert-card { aspect-ratio: 4 / 3; }
-      h1{ font-size:clamp(58px,17vw,90px); letter-spacing:-3px; }
-    }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; align-items: stretch; justify-items: center; margin-top: 12px; grid-auto-rows: 1fr; }
+    .cert-grid > .cert-card:first-child { grid-column: span 2; grid-row: span 2; width: 100%; max-width: 520px; }
+    .cert-card { width: 100%; max-width: 320px; background: transparent; border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 5; display: flex; flex-direction: column; }
+    .cert-card .cert-img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 6px; transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.55); background: linear-gradient(180deg, #111 0%, #0b0b0b 100%); }
+    .cert-card a:hover .cert-img { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 36px rgba(0,0,0,0.65); }
+    .cert-caption { margin-top: 10px; color: var(--muted); font-size: 14px; text-align: center; }
 
     footer{ padding:var(--section-padding) 0; }
     .footer-content{ display:flex; justify-content:center; align-items:center; gap:20px; color:#777777; font-size:12px; flex-wrap:wrap; text-align:center; }
@@ -207,8 +213,8 @@
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#certificates">Certificates</a>
-        <a href="#bookshelf">Bookshelf</a>
         <a href="#skills">Skills</a>
+        <a href="#bookshelf">Bookshelf</a>
       </div>
     </nav>
   </header>
@@ -261,15 +267,14 @@
             </div>
 
             <div class="section-text">
-              <p>I'm a Customer Service Representative based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas.</p>
-              <p>This website is a collection of the things I enjoy, create, learn and work on - from AI-generated artwork and writing to books, technology and everything in between.</p>
+              <p>I'm a Customer Service Representative based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas. This website is a collection of the things I enjoy, create, learn and work on - from AI-generated artwork and writing to books, technology and everything in between.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CERTIFICATES (moved before bookshelf) -->
+    <!-- CERTIFICATES -->
     <section id="certificates" class="section" aria-labelledby="certificates-title">
       <div class="container">
         <div class="certificates" role="region" aria-labelledby="certificates-title">
@@ -278,7 +283,6 @@
           <p style="color:var(--muted); margin-top:6px;">Certificates &amp; diplomas.</p>
 
           <div class="cert-grid">
-            <!-- Diploma (always first) -->
             <figure class="cert-card">
               <a href="diploma-python.png" target="_blank" rel="noopener noreferrer">
                 <img class="cert-img" src="diploma-python.png" alt="Diploma — Python" loading="eager" width="800" height="1000" />
@@ -286,7 +290,6 @@
               <figcaption class="cert-caption">Diploma — Python</figcaption>
             </figure>
 
-            <!-- Other certificates (all tiles have same box ratio; images will be cropped to fit) -->
             <figure class="cert-card">
               <a href="html-intro.jpg" target="_blank" rel="noopener noreferrer">
                 <img class="cert-img" src="html-intro.jpg" alt="Intro to HTML" loading="lazy" width="800" height="1000" />
@@ -333,7 +336,167 @@
       </div>
     </section>
 
-    <!-- BOOKSHELF (Goodreads) -->
+    <!-- SKILLS (updated: bigger cards, white icons, ensured missing icons show) -->
+    <section id="skills" class="section skills-section" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="content">
+          <p class="eyebrow">02 / SKILLS &amp; INTERESTS</p>
+          <h2 id="skills-title">Things I work with.</h2>
+
+          <div class="skills-list-wrapper" aria-label="Things I work with">
+            <div class="skills-list" role="list">
+              <!-- Using CDN icons where available (made white with CSS filter).
+                   For items where official icon CDN slugs are flaky or missing,
+                   inline SVG initials are used to guarantee visibility. -->
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/python.svg" alt="Python logo" />
+                </span>
+                <span class="skill-label">Python</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/django.svg" alt="Django logo" />
+                </span>
+                <span class="skill-label">Django</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postman.svg" alt="Postman / APIs logo" />
+                </span>
+                <span class="skill-label">REST APIs</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg" alt="React logo" />
+                </span>
+                <span class="skill-label">React</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mysql.svg" alt="SQL (MySQL) logo" />
+                </span>
+                <span class="skill-label">SQL</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="GitHub logo" />
+                </span>
+                <span class="skill-label">Git &amp; GitHub</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg" alt="Docker logo" />
+                </span>
+                <span class="skill-label">Docker</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jest.svg" alt="Testing (Jest) logo" />
+                </span>
+                <span class="skill-label">Testing</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/canva.svg" alt="Canva logo" />
+                </span>
+                <span class="skill-label">Canva</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/creativemarket.svg" alt="AI Artwork placeholder" />
+                </span>
+                <span class="skill-label">AI-Generated Artwork</span>
+              </span>
+
+              <!-- The next six were previously missing on CDN for some users.
+                   To guarantee they are visible, we use inline SVG initials
+                   styled to appear as brand-style tiles. You can swap these
+                   for official inline SVGs later if you prefer exact brand shapes. -->
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <!-- SUNO AI initials tile -->
+                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SUNO">
+                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="16" fill="#0b0b0b">SN</text>
+                  </svg>
+                </span>
+                <span class="skill-label">SUNO AI</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <!-- Wix initials tile -->
+                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wix">
+                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">WX</text>
+                  </svg>
+                </span>
+                <span class="skill-label">Wix</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <!-- WordPress initials tile -->
+                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WordPress">
+                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">WP</text>
+                  </svg>
+                </span>
+                <span class="skill-label">WordPress</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <!-- Krea AI initials tile -->
+                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Krea">
+                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">KR</text>
+                  </svg>
+                </span>
+                <span class="skill-label">Krea AI</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <!-- GitHub Copilot initials tile -->
+                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GitHub Copilot">
+                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="12" fill="#0b0b0b">GC</text>
+                  </svg>
+                </span>
+                <span class="skill-label">GitHub Copilot</span>
+              </span>
+
+              <span class="skill-card" role="listitem">
+                <span class="skill-icon" aria-hidden="true">
+                  <!-- ChatGPT initials tile -->
+                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ChatGPT">
+                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="12" fill="#0b0b0b">CG</text>
+                  </svg>
+                </span>
+                <span class="skill-label">ChatGPT</span>
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKSHELF (moved last) -->
     <section id="bookshelf" class="section" aria-labelledby="bookshelf-title">
       <div class="container">
         <div class="bookshelf" role="region" aria-labelledby="bookshelf-title">
@@ -355,29 +518,6 @@
         </div>
       </div>
     </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="section skills-section" aria-labelledby="skills-title">
-      <div class="container">
-        <div class="content">
-          <p class="eyebrow">02 / SKILLS &amp; INTERESTS</p>
-          <h2 id="skills-title">Things I work with.</h2>
-
-          <div class="skills-list" role="list" style="margin-top:16px;">
-            <span role="listitem">Python</span>
-            <span role="listitem">Django</span>
-            <span role="listitem">REST APIs</span>
-            <span role="listitem">React</span>
-            <span role="listitem">SQL</span>
-            <span role="listitem">Git &amp; GitHub</span>
-            <span role="listitem">Docker</span>
-            <span role="listitem">Testing</span>
-            <span role="listitem">Canva</span>
-            <span role="listitem">AI-Generated Artwork</span>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -388,5 +528,27 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Ensure external icons show as white; if an external icon fails to load,
+    // replace it with an inline initials SVG (defensive fallback).
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.skill-icon img').forEach(function(img){
+        img.addEventListener('error', function () {
+          var parent = img.parentNode;
+          var alt = img.getAttribute('alt') || '';
+          // pick initials from alt or default 'AI'
+          var initials = (alt.split(' ')[0] || 'AI').slice(0,2).toUpperCase();
+          var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+          svg.setAttribute('viewBox','0 0 46 46');
+          svg.setAttribute('width','46');
+          svg.setAttribute('height','46');
+          svg.innerHTML = '<rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>' +
+                          '<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="14" fill="#0b0b0b">'+initials+'</text>';
+          img.replaceWith(svg);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
