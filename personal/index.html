@@ -136,107 +136,6 @@
       .about-bubbles li { min-width: calc(100% - 24px); }
     }
 
-    /* Skills (DESIGN UPDATED) */
-    .skills-list-wrapper { max-width: var(--content-width); margin: 0 auto; }
-    .skills-list {
-      display:flex;
-      flex-wrap:wrap;
-      gap:18px;
-      justify-content:center;
-      align-items:center;
-      padding: 6px;
-      margin-top: 16px;
-    }
-
-    .skill-card {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 14px 18px;
-      border-radius: 14px;
-      min-width: 220px;
-      max-width: 320px;
-      font-size: 16px;
-      color: var(--text);
-      transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
-      will-change: transform;
-      cursor:default;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
-      position:relative;
-      overflow:visible;
-    }
-
-    .skill-card:hover{
-      transform: translateY(-8px) rotate(-0.5deg) scale(1.03);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
-    }
-
-    .skill-icon {
-      width:46px;
-      height:46px;
-      flex:0 0 46px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:10px;
-      background:linear-gradient(180deg,#0b0b0b,#141414);
-      padding:6px;
-      box-shadow: inset 0 -2px 6px rgba(0,0,0,0.4);
-    }
-
-    .skill-icon img {
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-      filter: invert(1) brightness(2) saturate(0) contrast(100%);
-    }
-
-    .skill-icon svg { width:100%; height:100%; display:block; fill: #ffffff; stroke: none; }
-
-    .skill-label { font-weight:600; color: #eaeaea; letter-spacing:0.2px; }
-
-    @keyframes floaty {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-      100% { transform: translateY(0px); }
-    }
-    .skill-card:nth-child(2n) { animation: floaty 6s ease-in-out infinite; }
-    .skill-card:nth-child(3n) { animation: floaty 7.2s ease-in-out infinite; }
-
-    @media (max-width:900px) {
-      .skill-card { min-width: calc(50% - 28px); }
-    }
-    @media (max-width:520px) {
-      .skill-card { min-width: calc(100% - 24px); }
-      .skill-icon { width:40px; height:40px; }
-    }
-
-    /* Bookshelf / Certificates styles */
-    .bookshelf { margin: 28px auto 0; max-width: calc(var(--content-width)); color: var(--text); }
-    .gr_grid_container { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px; align-items: start; justify-items: center; padding: 8px 6px; margin: 0 auto; }
-    .gr_grid_book_container { float: none; width: 100%; max-width: 140px; height: auto; padding: 0; overflow: hidden; display:flex; align-items:center; justify-content:center; background:transparent; }
-    .gr_grid_book_container img { width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.45); transition: transform .18s ease, box-shadow .18s ease; }
-    .gr_grid_book_container a:hover img { transform: translateY(-6px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.55); }
-
-    .certificates {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border: 1px solid rgba(255,255,255,0.03);
-      padding: 28px;
-      border-radius: 8px;
-      margin: 28px auto 0;
-      max-width: calc(var(--content-width));
-      color: var(--text);
-    }
-    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; align-items: stretch; justify-items: center; margin-top: 12px; grid-auto-rows: 1fr; }
-    .cert-grid > .cert-card:first-child { grid-column: span 2; grid-row: span 2; width: 100%; max-width: 520px; }
-    .cert-card { width: 100%; max-width: 320px; background: transparent; border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 5; display: flex; flex-direction: column; }
-    .cert-card .cert-img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 6px; transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.55); background: linear-gradient(180deg, #111 0%, #0b0b0b 100%); }
-    .cert-card a:hover .cert-img { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 36px rgba(0,0,0,0.65); }
-    .cert-caption { margin-top: 10px; color: var(--muted); font-size: 14px; text-align: center; }
-
     footer{ padding:var(--section-padding) 0; }
     .footer-content{ display:flex; justify-content:center; align-items:center; gap:20px; color:#777777; font-size:12px; flex-wrap:wrap; text-align:center; }
   </style>
@@ -247,9 +146,7 @@
       <a class="logo" href="#home">Stiliyan<span>.</span></a>
       <div class="nav-links">
         <a href="#about">About</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#skills">Skills</a>
-        <a href="#bookshelf">Bookshelf</a>
+        <a href="books.html">Bookshelf</a>
       </div>
     </nav>
   </header>
@@ -274,8 +171,6 @@
               height="220"
             />
           </div>
-
-          <h2>Customer Service Representative</h2>
 
           <p class="hero-quote">Everybody has to do what they love, so they can love what they do.</p>
           <p class="location">Varna, Bulgaria</p>
@@ -302,248 +197,15 @@
             </div>
 
             <div class="section-text">
-              <p>I'm a Customer Service Representative based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas. This website is a collection of the things I enjoy, create, learn and work on - from AI-generated artwork and writing to books, technology and everything in between.</p>
+              <p>I'm based in Varna, Bulgaria, with a passion for learning, creativity, technology, writing and exploring new ideas. This website is a collection of the things I enjoy, create, learn and work on — from AI-generated artwork and writing to books, technology and everything in between.</p>
 
               <ul class="about-bubbles" role="list" aria-label="Summary bullets about me">
-                <li role="listitem" tabindex="0">Customer support professional with 6 years of experience</li>
-                <li role="listitem" tabindex="0">2 years learning/programming with Python</li>
-                <li role="listitem" tabindex="0">Building projects and continuously improving</li>
+                <li role="listitem" tabindex="0">Creative and curious by nature</li>
+                <li role="listitem" tabindex="0">2 years learning and building with Python</li>
+                <li role="listitem" tabindex="0">Building projects and constantly improving</li>
               </ul>
-
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CERTIFICATES -->
-    <section id="certificates" class="section" aria-labelledby="certificates-title">
-      <div class="container">
-        <div class="certificates" role="region" aria-labelledby="certificates-title">
-          <h2 id="certificates-title">Certificates</h2>
-
-          <p style="color:var(--muted); margin-top:6px;">Certificates &amp; diplomas.</p>
-
-          <div class="cert-grid">
-            <figure class="cert-card">
-              <a href="diploma-python.png" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="diploma-python.png" alt="Diploma — Python" loading="eager" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">Diploma — Python</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="html-intro.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="html-intro.jpg" alt="Intro to HTML" loading="lazy" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">Intro — HTML</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="intro-css.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="intro-css.jpg" alt="Intro to CSS" loading="lazy" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">Intro — CSS</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="intro-javascript.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="intro-javascript.jpg" alt="Intro to JavaScript" loading="lazy" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">Intro — JavaScript</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="it-booster.png" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="it-booster.png" alt="IT Booster certificate" loading="lazy" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">IT Booster</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="javascript-intermediate.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="javascript-intermediate.jpg" alt="JavaScript Intermediate certificate" loading="lazy" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">JavaScript — Intermediate</figcaption>
-            </figure>
-
-            <figure class="cert-card">
-              <a href="python-intermediate.jpg" target="_blank" rel="noopener noreferrer">
-                <img class="cert-img" src="python-intermediate.jpg" alt="Python Intermediate certificate" loading="lazy" width="800" height="1000" />
-              </a>
-              <figcaption class="cert-caption">Python — Intermediate</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS (icons + fallbacks) -->
-    <section id="skills" class="section skills-section" aria-labelledby="skills-title">
-      <div class="container">
-        <div class="content">
-          <p class="eyebrow">02 / SKILLS &amp; INTERESTS</p>
-          <h2 id="skills-title">Things I work with.</h2>
-
-          <div class="skills-list-wrapper" aria-label="Things I work with">
-            <div class="skills-list" role="list">
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/python.svg" alt="Python logo" />
-                </span>
-                <span class="skill-label">Python</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/django.svg" alt="Django logo" />
-                </span>
-                <span class="skill-label">Django</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postman.svg" alt="Postman / APIs logo" />
-                </span>
-                <span class="skill-label">REST APIs</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg" alt="React logo" />
-                </span>
-                <span class="skill-label">React</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mysql.svg" alt="SQL (MySQL) logo" />
-                </span>
-                <span class="skill-label">SQL</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="GitHub logo" />
-                </span>
-                <span class="skill-label">Git &amp; GitHub</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg" alt="Docker logo" />
-                </span>
-                <span class="skill-label">Docker</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jest.svg" alt="Testing (Jest) logo" />
-                </span>
-                <span class="skill-label">Testing</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/canva.svg" alt="Canva logo" />
-                </span>
-                <span class="skill-label">Canva</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/creativemarket.svg" alt="AI Artwork placeholder" />
-                </span>
-                <span class="skill-label">AI-Generated Artwork</span>
-              </span>
-
-              <!-- Inline initials for items that may not reliably exist on CDN -->
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SUNO">
-                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
-                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="16" fill="#0b0b0b">SN</text>
-                  </svg>
-                </span>
-                <span class="skill-label">SUNO AI</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wix">
-                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
-                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">WX</text>
-                  </svg>
-                </span>
-                <span class="skill-label">Wix</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WordPress">
-                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
-                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">WP</text>
-                  </svg>
-                </span>
-                <span class="skill-label">WordPress</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Krea">
-                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
-                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="14" fill="#0b0b0b">KR</text>
-                  </svg>
-                </span>
-                <span class="skill-label">Krea AI</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GitHub Copilot">
-                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
-                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="12" fill="#0b0b0b">GC</text>
-                  </svg>
-                </span>
-                <span class="skill-label">GitHub Copilot</span>
-              </span>
-
-              <span class="skill-card" role="listitem">
-                <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ChatGPT">
-                    <rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>
-                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, Arial" font-size="12" fill="#0b0b0b">CG</text>
-                  </svg>
-                </span>
-                <span class="skill-label">ChatGPT</span>
-              </span>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BOOKSHELF (moved last) -->
-    <section id="bookshelf" class="section" aria-labelledby="bookshelf-title">
-      <div class="container">
-        <div class="bookshelf" role="region" aria-labelledby="bookshelf-title">
-          <h2 id="bookshelf-title">My bookshelf — Read</h2>
-
-          <div id="gr_grid_widget_1787653292">
-            <div class="gr_grid_container">
-              <!-- Keep your Goodreads static cover items here (omitted for brevity) -->
-            </div>
-
-            <div style="margin-top:14px; text-align:center;">
-              <a class="gr_grid_branding" rel="nofollow" href="https://www.goodreads.com/user/show/72587974-stiliyan-enchev">Stiliyan Enchev's favorite books »</a>
-            </div>
-
-            <noscript><div style="margin-top:12px; color:var(--muted);">Share <a rel="nofollow" href="/">book reviews</a> and ratings with Stiliyan, and even join a <a rel="nofollow" href="/group">book club</a> on Goodreads.</div></noscript>
-          </div>
-
-          <script src="https://www.goodreads.com/review/grid_widget/72587974.My%20bookshelf?cover_size=medium&hide_link=&hide_title=&num_books=32&order=a&shelf=read&sort=date_added&widget_id=1787653292" type="text/javascript" charset="utf-8"></script>
         </div>
       </div>
     </section>
@@ -558,26 +220,5 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // Defensive fallback: if an external icon image fails to load, replace it with initials SVG.
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.skill-icon img').forEach(function(img){
-        img.addEventListener('error', function () {
-          var parent = img.parentNode;
-          var alt = img.getAttribute('alt') || '';
-          var initials = (alt.split(' ')[0] || 'AI').slice(0,2).toUpperCase();
-          var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-          svg.setAttribute('viewBox','0 0 46 46');
-          svg.setAttribute('width','46');
-          svg.setAttribute('height','46');
-          svg.setAttribute('aria-hidden','true');
-          svg.innerHTML = '<rect x="0" y="0" width="46" height="46" rx="8" fill="#ffffff"/>' +
-                          '<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="14" fill="#0b0b0b">'+initials+'</text>';
-          img.replaceWith(svg);
-        });
-      });
-    });
-  </script>
 </body>
 </html>
