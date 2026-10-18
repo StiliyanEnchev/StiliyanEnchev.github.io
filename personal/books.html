@@ -2,383 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bookshelf — Stiliyan</title>
-  <meta name="description" content="Interactive bookshelf — reads Goodreads CSV placed next to this file" />
+  <meta name="description" content="Stiliyan Enchev — Bookshelf" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#080808;
-      --card:#0f0f0f;
-      --muted:#9b9b9b;
-      --text:#f4f4f4;
-      --accent:#8cff66;
-      --container:1100px;
-      --gap:20px;
-      --radius:10px;
-      --header-h:72px;
-      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --background:#080808;
+      --text:#f5f5f5;
+      --muted:#999999;
+      --border:#292929;
+      --content-width:1100px;
+      --header-height:76px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%; background:var(--bg); color:var(--text); margin:0; -webkit-font-smoothing:antialiased}
-    .container{width:min(var(--container),calc(100% - 48px)); margin:0 auto}
-    .site-header{position:fixed; top:0; left:0; right:0; height:var(--header-h); display:flex; align-items:center; backdrop-filter: blur(8px); background:rgba(4,4,4,0.7); border-bottom:1px solid rgba(255,255,255,0.03); z-index:20}
-    .header-inner{width:min(var(--container),calc(100% - 48px)); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px}
-    .logo{font-family:"Playfair Display",serif; font-weight:700; letter-spacing:1px; color:var(--text); text-decoration:none}
-    .nav a{color:var(--muted); margin-left:14px; text-decoration:none}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%; background:var(--background); color:var(--text); font-family:"DM Sans",system-ui, -apple-system, "Segoe UI", Roboto, Arial}
+    .container{width:min(var(--content-width), calc(100% - 64px)); margin:0 auto}
+    .site-header{ position:fixed; top:0; left:0; right:0; height:var(--header-height); display:flex; align-items:center; background:rgba(8,8,8,0.88); backdrop-filter: blur(8px); border-bottom:1px solid var(--border); z-index:100;}
+    .header-inner{width:min(var(--content-width), calc(100% - 64px)); margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:0 0;}
+    .logo{font-family:"Playfair Display", serif; font-weight:700; font-size:20px; text-decoration:none; color:var(--text)}
+    .nav a{color:var(--muted); margin-left:18px; text-decoration:none; font-size:14px}
     .nav a:hover{color:var(--text)}
-    main{padding-top:calc(var(--header-h) + 28px); padding-bottom:48px}
-    .hero{padding:28px 0 12px}
-    h1{font-family:"Playfair Display",serif; font-size:28px; margin:0 0 6px}
-    p.lead{color:var(--muted); margin:0 0 16px}
+    main{padding-top:var(--header-height);}
 
-    /* Controls */
-    .controls{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:14px 0 18px}
-    .controls input[type="search"], .controls select{
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.04);
-      background:#0b0b0b;
-      color:var(--text);
-      font-size:14px;
+    .page-head{padding:80px 0 20px; text-align:center}
+    h1{font-family:"Playfair Display",serif; font-size:34px; margin-bottom:8px}
+    p.lead{color:var(--muted); margin-bottom:18px}
+
+    /* Goodreads widget styles (from your snippet with slight layout adaption) */
+    .gr_grid_container {
+      /* default grid behavior, Goodreads widget will fill this */
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 14px;
+      align-items: start;
+      justify-items: center;
+      padding: 8px 6px;
+      margin: 0 auto;
+      max-width: var(--content-width);
     }
-    .small-muted{color:var(--muted); font-size:13px}
 
-    /* Grid */
-    .grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:16px; margin-top:18px}
-    .book-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.03); border-radius:10px; padding:8px; text-align:left; color:var(--text); display:flex; flex-direction:column; gap:8px; transition:transform .18s ease, box-shadow .18s ease}
-    .book-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,0.6)}
-    .cover{width:100%; aspect-ratio:2/3; background:#0b0b0b; border-radius:6px; overflow:hidden; display:block}
-    .cover img{width:100%; height:100%; object-fit:cover; display:block}
-    .meta{font-size:13px}
-    .title{font-weight:700; font-size:14px; line-height:1.15; margin-bottom:4px; color:var(--text)}
-    .author{color:var(--muted); font-size:13px}
-    .badge-row{display:flex; gap:6px; align-items:center; margin-top:auto}
-    .badge{background:rgba(255,255,255,0.03); color:var(--muted); padding:6px 8px; border-radius:999px; font-size:12px}
-    .rating{color:var(--accent); font-weight:700; font-size:13px}
-    .gr-link{margin-left:auto; color:var(--muted); text-decoration:none; font-size:13px}
-    .gr-link:hover{color:var(--text)}
+    .gr_grid_book_container {
+      float: none;
+      width: 98px;
+      height: 160px;
+      padding: 0;
+      overflow: hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .gr_grid_book_container img { width:100%; height:auto; display:block; border-radius:4px; box-shadow:0 6px 18px rgba(0,0,0,0.45); transition: transform .18s ease, box-shadow .18s ease; }
+    .gr_grid_book_container a:hover img { transform: translateY(-6px) scale(1.02); box-shadow:0 12px 28px rgba(0,0,0,0.55); }
 
-    .placeholder{display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px; height:100%}
-    .empty{color:var(--muted); padding:28px; text-align:center}
-    .status{color:var(--muted); font-size:13px}
+    .noscript-note{color:var(--muted); margin-top:12px; text-align:center}
 
-    @media (max-width:640px){
-      .grid{grid-template-columns: repeat(auto-fill, minmax(140px,1fr))}
-      .header-inner{padding:0 12px}
-      .controls{flex-direction:column; align-items:stretch}
+    footer{padding:60px 0; text-align:center; color:var(--muted); font-size:13px}
+    @media (max-width:700px){
+      .gr_grid_book_container{ width:86px; height:140px; }
     }
   </style>
 </head>
 <body>
   <header class="site-header" role="banner">
-    <div class="header-inner">
+    <div class="header-inner container">
       <a class="logo" href="index.html">STILIYAN.</a>
-      <nav class="nav">
+      <nav class="nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="books.html" style="color:var(--text)">Bookshelf</a>
-        <a href="writing.html">Writing</a>
+        <!-- Writing link removed per your request -->
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
+    <section class="page-head">
       <h1>My bookshelf — Read</h1>
-      <p class="lead">This shelf loads directly from your Goodreads CSV export placed next to this file. Recommended file name: <code>goodreads_library_export.csv</code>.</p>
+      <p class="lead">Covers link to Goodreads. Replace or regenerate this widget from Goodreads to update the visible items.</p>
+    </section>
 
-      <div class="controls" role="group" aria-label="Bookshelf controls">
-        <input id="search" type="search" placeholder="Search title or author…" aria-label="Search books">
-        <select id="rating-filter" aria-label="Filter by rating">
-          <option value="">All ratings</option>
-          <option value="5">5 ★</option>
-          <option value="4">4 ★ & up</option>
-          <option value="3">3 ★ & up</option>
-        </select>
-        <select id="sort" aria-label="Sort books">
-          <option value="title">Sort: Title (A→Z)</option>
-          <option value="author">Sort: Author (A→Z)</option>
-          <option value="date_added">Sort: Date added (new→old)</option>
-          <option value="rating">Sort: Rating (high→low)</option>
-        </select>
+    <section>
+      <style type="text/css" media="screen">
+        .gr_grid_container {
+          /* customize grid container div here. eg: width: 500px; */
+        }
 
-        <div style="margin-left:auto" class="status" id="status">Loading CSV from site folder…</div>
+        .gr_grid_book_container {
+          /* customize book cover container div here */
+          float: left;
+          width: 98px;
+          height: 160px;
+          padding: 0px 0px;
+          overflow: hidden;
+        }
+      </style>
+
+      <div id="gr_grid_widget_1792319872">
+        <!-- Show static html as a placeholder in case js is not enabled - javascript include will override this if things work -->
+        <div class="gr_grid_container">
+          <div class="gr_grid_book_container"><a title="Пациентът" rel="nofollow" href="https://www.goodreads.com/book/show/235085113"><img alt="Пациентът" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1748280596l/235085113._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Love for Imperfect Things: How to Accept Yourself in a World Striving for Perfection" rel="nofollow" href="https://www.goodreads.com/book/show/39736045-love-for-imperfect-things"><img alt="Love for Imperfect Things: How to Accept Yourself in a World Striving for Perfection" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1531215461l/39736045._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Imbalance (Avatar: The Last Airbender, #6)" rel="nofollow" href="https://www.goodreads.com/book/show/52893819-imbalance"><img alt="Imbalance" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1580818943l/52893819._SX98_SY160_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Всички цветове на мрака" rel="nofollow" href="https://www.goodreads.com/book/show/234715538"><img alt="Всички цветове на мрака" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1787812884l/234715538._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Малките травми" rel="nofollow" href="https://www.goodreads.com/book/show/211923784"><img alt="Малките травми" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1713689449l/211923784._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="За мишките и хората" rel="nofollow" href="https://www.goodreads.com/book/show/9285961"><img alt="За мишките и хората" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1284286077l/9285961._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="I'm Thinking of Ending Things" rel="nofollow" href="https://www.goodreads.com/book/show/40605223-i-m-thinking-of-ending-things"><img alt="I'm Thinking of Ending Things" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1625603942l/40605223._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Лятото на невъзможните неща" rel="nofollow" href="https://www.goodreads.com/book/show/39797612"><img alt="Лятото на невъзможните неща" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1523392606l/39797612._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="The Haunting of Hill House" rel="nofollow" href="https://www.goodreads.com/book/show/89717.The_Haunting_of_Hill_House"><img alt="The Haunting of Hill House" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327871336l/89717._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Тъмната кула VII. Част 2: Тъмната кула (Тъмната кула, #7)" rel="nofollow" href="https://www.goodreads.com/book/show/23484968-vii-2"><img alt="Тъмната кула VII. Част 2: Тъмната кула" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1414780438l/23484968._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Тъмната кула VII. Част 1: Изгубени гласове (Тъмната кула, #7)" rel="nofollow" href="https://www.goodreads.com/book/show/23484924-vii-1"><img alt="Тъмната кула VII. Част 1: Изгубени гласове" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1414779677l/23484924._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Песента на Сузана (Тъмната кула, #6)" rel="nofollow" href="https://www.goodreads.com/book/show/7913553"><img alt="Песента на Сузана" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1552928196l/7913553._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Вълците от Кала (Тъмната кула, #5)" rel="nofollow" href="https://www.goodreads.com/book/show/7913535"><img alt="Вълците от Кала" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1545206768l/7913535._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Вихър през ключалката (Тъмната кула, #4.5)" rel="nofollow" href="https://www.goodreads.com/book/show/17724645"><img alt="Вихър през ключалката" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1364853708l/17724645._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Магьосникът (Тъмната кула, #4)" rel="nofollow" href="https://www.goodreads.com/book/show/7913531"><img alt="Магьосникът" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1269525091l/7913531._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Пустош (Тъмната кула, #3)" rel="nofollow" href="https://www.goodreads.com/book/show/7913506"><img alt="Пустош" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1532707381l/7913506._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Трите карти (Тъмната кула, #2)" rel="nofollow" href="https://www.goodreads.com/book/show/7913518"><img alt="Трите карти" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1504553264l/7913518._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Стрелецът (Тъмната кула, #1)" rel="nofollow" href="https://www.goodreads.com/book/show/7913405"><img alt="Стрелецът" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1269518790l/7913405._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Примката на призрака" rel="nofollow" href="https://www.goodreads.com/book/show/34611485"><img alt="Примката на призрака" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1489725247l/34611485._SX98_.jpg" /></a></div>
+          <div class="gr_grid_book_container"><a title="Стъкленият меч (Алена кралица, #2)" rel="nofollow" href="https://www.goodreads.com/book/show/28955675"><img alt="Стъкленият меч" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1454874152l/28955675._SX98_.jpg" /></a></div>
+          <noscript><br/>Share <a rel="nofollow" href="/">book reviews</a> and ratings with Stiliyan, and even join a <a rel="nofollow" href="/group">book club</a> on Goodreads.</noscript>
+        </div>
       </div>
-    </section>
 
-    <section aria-live="polite">
-      <div id="grid" class="grid" aria-label="Books"></div>
-      <div id="empty" class="empty" style="display:none">No books match the filter / search.</div>
-    </section>
-
-    <section style="margin-top:28px">
-      <div class="status" id="instructions" aria-hidden="false"></div>
+      <script src="https://www.goodreads.com/review/grid_widget/72587974.Stiliyan's%20bookshelf:%20read?cover_size=medium&hide_link=true&hide_title=true&num_books=200&order=d&shelf=read&sort=date_added&widget_id=1792319872" type="text/javascript" charset="utf-8"></script>
     </section>
   </main>
 
-  <footer style="padding:28px 0; text-align:center; color:var(--muted)">
-    © <span id="year"></span> Stiliyan — Bookshelf
+  <footer>
+    <div class="container">
+      <div style="padding:28px 0; color:var(--muted); text-align:center;">© <span id="year">2026</span> Stiliyan Enchev — <a href="https://github.com/StiliyanEnchev" target="_blank" rel="noopener noreferrer" style="color:var(--muted)">github.com/StiliyanEnchev</a></div>
+    </div>
   </footer>
-
-  <!-- PapaParse for CSV parsing -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const tryFiles = [
-      'goodreads_library_export.csv',
-      'goodreads_library_export (1).csv',
-      'goodreads_library_export%20(1).csv'
-    ];
-
-    const statusEl = document.getElementById('status');
-    const instrEl = document.getElementById('instructions');
-    const grid = document.getElementById('grid');
-    const empty = document.getElementById('empty');
-    const searchInput = document.getElementById('search');
-    const ratingFilter = document.getElementById('rating-filter');
-    const sortSelect = document.getElementById('sort');
-
-    let books = [];
-    let rendered = [];
-
-    function extractISBN(s){
-      if(!s) return null;
-      const cleaned = String(s).replace(/["= ]/g,'');
-      const m = cleaned.match(/(\d{10,13})/);
-      return m ? m[1] : null;
-    }
-
-    function parseDateString(s){
-      if(!s) return null;
-      const normalized = s.replace(/\//g,'-');
-      const d = new Date(normalized);
-      return isNaN(d) ? null : d;
-    }
-
-    function coverUrlFor(isbn){
-      if(!isbn) return null;
-      return 'https://covers.openlibrary.org/b/isbn/' + isbn + '-L.jpg';
-    }
-
-    function goodreadsUrlFor(bookId){
-      if(!bookId) return '#';
-      return 'https://www.goodreads.com/book/show/' + encodeURIComponent(bookId);
-    }
-
-    function renderBooks(list){
-      grid.innerHTML = '';
-      if(!list || list.length === 0){
-        empty.style.display = 'block';
-        return;
-      } else {
-        empty.style.display = 'none';
-      }
-
-      list.forEach(b=>{
-        const a = document.createElement('a');
-        a.className = 'book-card';
-        a.href = goodreadsUrlFor(b.bookId);
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-
-        const cov = document.createElement('div');
-        cov.className = 'cover';
-        if(b.coverUrl){
-          const img = document.createElement('img');
-          img.loading = 'lazy';
-          img.decoding = 'async';
-          img.src = b.coverUrl;
-          img.onerror = function(){
-            if(this.src.includes('-L.jpg')){
-              this.src = b.coverUrl.replace('-L.jpg','-M.jpg');
-            } else {
-              this.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450"><rect width="100%" height="100%" fill="#0b0b0b"/><text x="50%" y="50%" text-anchor="middle" fill="#777" font-family="DM Sans,Arial" font-size="16">No cover</text></svg>`);
-            }
-          };
-          cov.appendChild(img);
-        } else {
-          const p = document.createElement('div');
-          p.className = 'placeholder';
-          p.textContent = 'No cover';
-          cov.appendChild(p);
-        }
-
-        const meta = document.createElement('div');
-        meta.className = 'meta';
-        const title = document.createElement('div');
-        title.className = 'title';
-        title.textContent = b.title || 'Untitled';
-        const author = document.createElement('div');
-        author.className = 'author';
-        author.textContent = b.author || '';
-
-        meta.appendChild(title);
-        meta.appendChild(author);
-
-        const br = document.createElement('div');
-        br.className = 'badge-row';
-        const ratingBadge = document.createElement('div');
-        ratingBadge.className = 'badge';
-        ratingBadge.innerHTML = (b.rating && b.rating !== '') ? `<span class="rating">${b.rating} ★</span>` : `<span class="small-muted">—</span>`;
-        const yearBadge = document.createElement('div');
-        yearBadge.className = 'badge';
-        yearBadge.textContent = b.yearPublished || '';
-
-        const gr = document.createElement('span');
-        gr.className = 'gr-link';
-        gr.textContent = 'Goodreads ↗';
-
-        br.appendChild(ratingBadge);
-        br.appendChild(yearBadge);
-        br.appendChild(gr);
-
-        a.appendChild(cov);
-        a.appendChild(meta);
-        a.appendChild(br);
-
-        grid.appendChild(a);
-      });
-    }
-
-    function applyFilters(){
-      const q = (searchInput.value || '').trim().toLowerCase();
-      const ratingSel = ratingFilter.value;
-      const sortBy = sortSelect.value;
-
-      let out = books.slice();
-
-      if(ratingSel){
-        const r = parseInt(ratingSel,10);
-        out = out.filter(b => {
-          const rv = parseFloat(b.rating) || 0;
-          return rv >= r;
-        });
-      }
-
-      if(q){
-        out = out.filter(b => {
-          const text = ((b.title||'') + ' ' + (b.author||'') + ' ' + (b.publisher||'')).toLowerCase();
-          return text.includes(q);
-        });
-      }
-
-      out.sort((a,b)=>{
-        if(sortBy === 'title'){
-          return (a.title||'').localeCompare(b.title||'');
-        } else if(sortBy === 'author'){
-          return (a.author||'').localeCompare(b.author||'');
-        } else if(sortBy === 'rating'){
-          return (parseFloat(b.rating||0) - parseFloat(a.rating||0));
-        } else if(sortBy === 'date_added' || sortBy === 'date'){
-          const da = a.dateAdded ? new Date(a.dateAdded) : null;
-          const db = b.dateAdded ? new Date(b.dateAdded) : null;
-          if(!da && !db) return 0;
-          if(!da) return 1;
-          if(!db) return -1;
-          return db - da;
-        }
-        return 0;
-      });
-
-      rendered = out;
-      renderBooks(out);
-    }
-
-    function normalizeRow(row){
-      const bookId = row['Book Id'] || row['BookId'] || row['Book id'] || '';
-      const title = row['Title'] || '';
-      const author = row['Author'] || row['Author l-f'] || '';
-      const isbn13raw = row['ISBN13'] || row['ISBN 13'] || row['ISBN13'] || '';
-      const isbnraw = row['ISBN'] || '';
-      const rating = row['My Rating'] || '';
-      const publisher = row['Publisher'] || '';
-      const pages = row['Number of Pages'] || '';
-      const yearPublished = row['Year Published'] || '';
-      const dateAdded = row['Date Added'] || '';
-      const dateRead = row['Date Read'] || '';
-      const bookshelves = row['Bookshelves'] || '';
-
-      const isbn13 = extractISBN(isbn13raw) || extractISBN(isbnraw);
-      const coverUrl = isbn13 ? coverUrlFor(isbn13) : (extractISBN(isbnraw) ? coverUrlFor(extractISBN(isbnraw)) : null);
-
-      return {
-        bookId: (bookId||'').toString().trim(),
-        title: (title||'').trim(),
-        author: (author||'').trim(),
-        isbn13: isbn13,
-        coverUrl: coverUrl,
-        rating: rating ? rating.trim() : '',
-        publisher: (publisher||'').trim(),
-        pages: pages,
-        yearPublished: yearPublished,
-        dateAdded: dateAdded,
-        dateRead: dateRead,
-        bookshelves: bookshelves
-      };
-    }
-
-    function tryFetchCsv(listOfNames){
-      if(!listOfNames || listOfNames.length === 0) return Promise.reject('no filenames');
-      const name = listOfNames[0];
-      return fetch(name, {cache: "no-store"}).then(resp=>{
-        if(!resp.ok) throw new Error('not found');
-        return resp.text();
-      }).catch(err=>{
-        if(listOfNames.length > 1) return tryFetchCsv(listOfNames.slice(1));
-        throw err;
-      });
-    }
-
-    function parseCsvText(text){
-      return new Promise((resolve, reject)=>{
-        Papa.parse(text, {
-          header: true,
-          skipEmptyLines: true,
-          complete: function(results){
-            resolve(results.data);
-          },
-          error: function(err){
-            reject(err);
-          }
-        });
-      });
-    }
-
-    function isFileProtocol(){ return location.protocol === 'file:'; }
-
-    async function loadFromServer(){
-      statusEl.textContent = 'Trying to load CSV from site folder…';
-      // If opened via file://, inform user and stop (user will host/serve the files)
-      if(isFileProtocol()){
-        statusEl.innerHTML = 'Page opened via <code>file://</code>; automatic load from disk is blocked by the browser. To use automatic CSV loading, either:<br>- Run a local static server (recommended): <code>python3 -m http.server 8000</code> then open <code>http://localhost:8000/books.html</code><br>- Or deploy to GitHub Pages and place the CSV next to books.html.<br><br>Otherwise rename your CSV to <code>goodreads_library_export.csv</code> and host it along this file.';
-        instrEl.innerHTML = 'Tip: rename your export to <code>goodreads_library_export.csv</code> and place it next to this file on the server. Then refresh.';
-        return;
-      }
-      try{
-        const text = await tryFetchCsv(tryFiles);
-        const rows = await parseCsvText(text);
-        books = rows.map(normalizeRow);
-        statusEl.textContent = `Loaded ${books.length} rows from CSV`;
-        instrEl.innerHTML = 'If you update the CSV on the server, refresh this page to reload the shelf.';
-        applyFilters();
-      } catch(e){
-        statusEl.textContent = 'Could not find CSV in folder — place your Goodreads export next to this page and name it <code>goodreads_library_export.csv</code> (or one of the tried variants), then reload.';
-        instrEl.innerHTML = 'If you are hosting on GitHub Pages, push the CSV and this file to the repo. Avoid spaces in the CSV filename for simpler URLs.';
-        console.error('CSV fetch error', e);
-      }
-    }
-
-    searchInput.addEventListener('input', applyFilters);
-    ratingFilter.addEventListener('change', applyFilters);
-    sortSelect.addEventListener('change', applyFilters);
-
-    // load on start
-    loadFromServer();
-
-    // convenience: expose reload for debugging/remote console
-    window.reloadBookshelf = loadFromServer;
-  </script>
 </body>
 </html>
